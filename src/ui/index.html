@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link rel="stylesheet" href="./index.css">
+    <script src="https://kit.fontawesome.com/c6e92889a4.js" crossorigin="anonymous"></script>
+    <title>ElectronSys</title>
+</head>
+
+<body>
+
+    <!--   Cuantity to remove TEST      -->
+    <div id="remove-box" style="display: none">
+        <label for="confirm-quantity">¿Cuantos elementos quieres eliminar?</label>
+        <input type="number">
+    </div>
+
+    <main class="container-fluid">
+        <div class="row" id="main">
+            <!-- Superior Buttons -->
+            <div>
+                <ul class="nav nav-tabs p-2 gap-3" id="nav-bar">
+                    <li class="nav-item" id="select-sales">
+                        <a class="nav-link" href="#" id="sales-button">Ventas</a>
+                    </li>
+                    <li class="nav-item" id="select-products">
+                        <a class="nav-link" data-bs-toggle="tab" href="#" id="products-button">Productos</a>
+                    </li>
+                    <form class="d-flex p-2 gap-3" id="search-form">
+                        <input 
+                            class="form-control me-sm-2" 
+                            type="text" 
+                            placeholder="Buscar" 
+                            id="search-box"
+                            required>
+                        
+                        <select class="nav-link color-black" id="dropdown-list">
+                            <option value="category" id="dropdown-item" selected="selected">Todos</option>
+                            <option value="category" id="dropdown-item">Categoría</option>
+                            <option value="modelo" id="dropdown-item">Modelo</option>
+                            <option value="size" id="dropdown-item">Talla</option>
+                            <option value="sexo" id="dropdown-item">Sexo</option>
+                        </select>
+
+                        <button class="btn btn-primary my-2 my-sm-0" type="submit" id="search-button">Buscar</button>
+                        <button class="btn btn-primary my-2 my-sm-0" type="reset" id="reset-button">Refresh</button>
+                    </form>
+                </ul>
+
+            </div>
+            
+            <div class="col-md-6 p-4 off my-auto" id="form container forms">
+                <!-- PRODUCTS FORM  -->
+                <form action="" class="card card-body gap-3 elements-form" id="products-form">
+
+                    <h1 class="animate__animated animate__fadeInDown" id="form-title">Registrar Producto</h1>
+
+                    <div class="form-group">
+                        <input 
+                            type="text" 
+                            id="name-product" 
+                            placeholder="Nombre del Producto" 
+                            class="form-control" 
+                            autofocus
+                            required>
+                    </div>
+
+
+                    <div id="quantity-price-input">
+                        <div class="form-group">
+                            <input 
+                                type="number" 
+                                id="price-product" 
+                                placeholder="Precio" 
+                                step="any"
+                                class="form-control"
+                                required>
+                        </div>
+
+                        <div class="form-group">
+                            <input 
+                                type="number" 
+                                id="quantity-products" 
+                                placeholder="Cantidad" 
+                                step="any"
+                                class="form-control"
+                                required>
+                        </div>
+                    </div>
+
+                
+                    <div class="form-group">
+                        <input 
+                            type="text" 
+                            id="category-product" 
+                            placeholder="Categoría" 
+                            step="any"
+                            class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <input 
+                            type="text" 
+                            id="model-product" 
+                            placeholder="modelo" 
+                            step="any"
+                            class="form-control">
+                    </div>
+
+
+                    <div class="form-group">
+                        <input 
+                            type="text" 
+                            id="size-product" 
+                            placeholder="talla" 
+                            step="any"
+                            class="form-control">
+                    </div>
+
+
+                    <div id="category-model-sex-input">
+                    <div class="form-group">
+                        <input 
+                            type="text" 
+                            id="color-product" 
+                            placeholder="Color" 
+                            step="any"
+                            class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <input 
+                            type="text" 
+                            id="gender-product" 
+                            placeholder="Género" 
+                            step="any"
+                            class="form-control">
+                    </div>
+                    </div>
+
+
+
+                    <div class="form-control description-container">
+                        <textarea rows="3" id="description-product" class="form-control m-0"
+                            placeholder="Descripción"></textarea>
+                    </div>
+
+                    <button class="btn btn-primary">
+                        Agregar
+                    </button>
+
+                </form>
+
+
+                <!-- SALES FORM  -->
+                <form action="" class="card card-body gap-3 elements-form" id="sales-form2">
+                    <h1 class="animate__animated animate__slideInLeft" id="form-title">Registrar una venta</h1>
+
+                    <div class="form-group">
+                        <input 
+                            type="text" 
+                            id="name-client" 
+                            placeholder="Nombre del cliente" 
+                            class="form-control" 
+                            autofocus
+                            required>
+                    </div>
+
+                    <div class="form-group">
+                        <input 
+                            type="text" 
+                            id="product-client" 
+                            placeholder="Nombre del producto/codigo" 
+                            class="form-control" 
+                            autofocus
+                            required>
+                    </div>
+
+                    <div class="form-group">
+                        <input 
+                            type="text" 
+                            id="quantity-client-articles" 
+                            placeholder="Cantidad" 
+                            class="form-control" 
+                            autofocus
+                            required>
+                    </div>
+
+                    <div class="form-group">
+                        <input 
+                            type="number" 
+                            id="price-client" 
+                            placeholder="Precio al cliente" 
+                            step="any"
+                            class="form-control"
+                            required>
+                    </div>
+
+
+                    <div class="form-group">
+                        <input 
+                            type="date" 
+                            id="delivery-date-client"  
+                            class="form-control" 
+                            autofocus
+                            required>
+                    </div>
+
+                    <div class="form-control description-container">
+                        <textarea rows="3" id="location" class="form-control m-0"
+                            placeholder="Dirección"></textarea>
+                    </div>
+
+                    <div class="form-control description-container">
+                        <textarea rows="3" id="description-sale" class="form-control m-0"
+                            placeholder="Detalles"></textarea>
+                    </div>
+
+                    <button class="btn btn-primary">
+                        confirmar
+                    </button>
+
+                </form>
+
+            </div>
+
+            <!-- Products Container  -->
+            <div class="col-md-6" id="products-container">
+
+                <hr>
+                <h1 id="title-elements-container1" class="animate__animated animate__flipInX" style="color:rgb(255, 253, 240)"><pre>P e d i d o s</pre></h1>
+                <h1 id="title-elements-container2" class="animate__animated animate__flipInX" style="color:rgb(255, 253, 240)"><pre>P r o d u c t o s</pre></h1>
+                <hr>
+
+                <div id="products">
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+
+    <!-- Carga de scrips relacionados a UI -->
+    <script src="./renderer.js"></script>
+</body>
+
+</html>

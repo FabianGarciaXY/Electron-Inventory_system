@@ -1,0 +1,138 @@
+
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+#products {
+    height: 100vh;
+    overflow-y: auto;
+    padding: 4px;
+}
+#dropdown-list {
+    width: 100px;
+    font-family: 'fa-solid fa-arrow-down-a-z';
+}
+#dropdown-item {
+    color: black;
+}
+
+#products-form{
+    margin-top: -50px;
+}
+
+.elements-form {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-control {
+    width: 100hv;
+    height: 50px;
+}
+
+.form-control > textarea {
+    width: 100%;
+    height: 75px;
+}
+
+.description-container {
+    width: 280px;
+    height: 100px;
+}
+
+/* Inputs elements*/
+#quantity-price-input, #category-model-sex-input{
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+#price-product, #quantity-products{
+    width: 135px;
+}
+#color-product, #gender-product {
+    width: 132px;
+}
+
+#title-elements-container1, #title-elements-container2 {
+    text-align: center;
+    font-size: 24px;
+    padding: 0px 0 0 0;
+}
+
+
+/*============  Nav Bar  =============*/
+#nav-bar{
+    height: 55px;
+    margin-bottom: 0;
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+ul {
+    height: 40px;
+}
+li {
+    margin-top: 0;
+    padding: 0;
+    height: 35px;
+}
+#products-button, #sales-button {
+    color:  #cacaca;
+    width: 135px;
+    text-align: center;
+    border-radius: 5px;
+    margin-top: 0px;
+    padding: 5px 0;
+}
+
+#search-button, #reset-button {
+    color:  #cacaca;
+    width: 110px;
+    text-align: center;
+    border-radius: 5px;
+    margin-top: 0px;
+    padding: 5px 0;
+}
+#search-form {
+    height: 50px;
+    margin-top: 0px;
+    padding: 0;
+    margin-top: -7px;
+}
+#search-box {
+    height: 36px;
+    width: 350px;
+}
+
+@media (max-width: 1050px) {
+    #nav-bar {
+        height: 110px;
+        display: flex;
+        flex-wrap: wrap-reverse;
+        padding: 0;
+    }
+
+    #products-form{
+        margin-top: 0px;
+    }
+}
+
+@media (max-width: 700px) {
+    #nav-bar {
+        height: 110px;
+        display: flex;
+        flex-wrap: wrap;        
+        height: 130px;
+    }
+    #search-box {
+        height: 36px;
+        width: 220px;
+    }
+    #products-form{
+        margin-top: 0px;
+    }
+}
