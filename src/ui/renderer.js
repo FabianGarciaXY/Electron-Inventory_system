@@ -38,7 +38,7 @@ const selectProductsButton = document.getElementById('select-products');
 const productsList = document.getElementById('products');
 let products = [];
 let myTable = 'client_orders';
-let myColumn = 'date_delivery'
+let myColumn = 'date_delivery';
 
 
 
@@ -92,6 +92,71 @@ const deleteProduct = async (id) => {
 /*============ Search a Product =============*/
 const searchProduct = async (value) => {
     return await ipcRenderer.invoke('searchProduct', value);
+}
+
+
+//--------------------------------------------------------------------------------------//
+//                  Get Products On Typing in ProductName Input                         //
+//--------------------------------------------------------------------------------------//
+const inputDisplay = document.getElementById('products-input-search-results');
+const listOfResults = document.getElementById('list-products-found');
+let searchProductsInputResults = [];
+
+inputDisplay.style.position = 'absolute';
+inputDisplay.style.color = '#e3eaa7';
+inputDisplay.style.backgroundColor = '#36486a';
+inputDisplay.style.borderRadius = '0 10px 10px 15px';
+inputDisplay.style.padding = '5px 5px 0px 0px';
+inputDisplay.style.display = 'none';
+inputDisplay.style.width = '280px';
+inputDisplay.style.textAlign = 'left';
+listOfResults.style.listStyle = 'none';
+
+productName.addEventListener('input', async () => {
+
+    if (inputDisplay.textContent.length === 0 || productName.value == '') {
+        inputDisplay.style.display = 'none';
+        listOfResults.innerHTML = '';
+        return
+    } else {
+        inputDisplay.style.display = 'flex';
+    }
+
+    const results = await ipcRenderer.invoke('searchProduct', productName.value);
+    searchProductsInputResults = results;
+    renderMatchedProducs(searchProductsInputResults);
+
+    if (searchProductsInputResults.length === 0) {
+        listOfResults.innerHTML = 'Ningun producto relacionado';
+        console.log(searchProductsInputResults.length);
+    }
+});
+
+// Render list of products founded
+function renderMatchedProducs(array) {
+    listOfResults.innerHTML = '';
+    array.forEach( (product) => {
+        listOfResults.innerHTML +=
+            `<li id="product-found" stile="background-color: black;" onClick="displayProductSelected(${product.id_product})">${product.name}</li>`;
+    });
+}
+
+// Populate products form
+async function displayProductSelected(id) {
+    const selectedArticle = await ipcRenderer.invoke('getSpecificProduct', id);
+    console.log(selectedArticle);
+    inputDisplay.style.display = 'none';
+
+    productName.value = selectedArticle[0].name;
+    productPrice.value = parseFloat(selectedArticle[0].price);
+    productQuantity.value = parseInt(selectedArticle[0].quantity);
+    productCategory.value = selectedArticle[0].category;
+    productModel.value = selectedArticle[0].model;
+    productSize.value = selectedArticle[0].size;
+    productColor.value = selectedArticle[0].color;
+    productGeneder.value = selectedArticle[0].gender;
+    productDescription.value = selectedArticle[0].description;
+
 }
 
 

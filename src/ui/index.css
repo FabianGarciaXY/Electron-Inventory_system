@@ -71,10 +71,6 @@ body {
     display: flex;
     flex-wrap: nowrap;
 }
-
-ul {
-    height: 40px;
-}
 li {
     margin-top: 0;
     padding: 0;
@@ -135,4 +131,10 @@ li {
     #products-form{
         margin-top: 0px;
     }
+}
+
+/*List of items found*/
+ul > #product-found:hover{
+    cursor: pointer;
+    transform: scale(1.1);
 }

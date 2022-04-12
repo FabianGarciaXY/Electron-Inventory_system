@@ -186,7 +186,14 @@ ipcMain.handle('searchProduct', async (e, value) => {
     const result = await conn.query(`SELECT * FROM products WHERE name LIKE '%${value}%';`);
     return result;
 })
-
+ipcMain.handle('getSpecificProduct', async (e, id) => {
+    
+    id = parseInt(id);
+    console.log(id);
+    const conn = await getConnection();
+    const result = await conn.query(`SELECT * FROM products WHERE id_product LIKE '%${id}%';`);
+    return result;
+})
 
 
 /*=============  QUERIE's FOR ORDERS  ==============*/
