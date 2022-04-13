@@ -18,8 +18,10 @@ body {
     color: black;
 }
 
+
+/*============  Record Product Form  =============*/
 #products-form{
-    margin-top: -50px;
+    margin-top: 0px;
 }
 
 .elements-form {
@@ -138,3 +140,26 @@ ul > #product-found:hover{
     cursor: pointer;
     transform: scale(1.1);
 }
+
+
+/*============ New Product button  =============*/
+#add-products-form {
+    display: none;
+    margin-top: 0;
+}
+
+#add-new-product, #return-button {
+    text-align: right;
+    margin-left: 200px;
+    color: rgb(255, 235, 198);
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+#data-product-to-add {
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    font-style: italic;
+}   

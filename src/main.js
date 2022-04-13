@@ -1,4 +1,5 @@
 const { BrowserWindow, Menu, app, ipcMain, Notification } = require('electron');
+const { cp } = require('original-fs');
 const { getConnection } = require('./database');
 
 
@@ -192,6 +193,19 @@ ipcMain.handle('getSpecificProduct', async (e, id) => {
     console.log(id);
     const conn = await getConnection();
     const result = await conn.query(`SELECT * FROM products WHERE id_product LIKE '%${id}%';`);
+    return result;
+})
+
+
+/*============  Queries for update produts quantity  =============*/
+
+ipcMain.handle('update-quantity', async (e, [id, value]) => {
+    
+    const idSelected = parseInt(id);
+    const setValue = parseInt(value);
+
+    const conn = await getConnection();
+    const result = await conn.query(`UPDATE products SET quantity = ${setValue} WHERE id_product = ?`, idSelected);
     return result;
 })
 

@@ -55,15 +55,19 @@
             </div>
             
             <div class="col-md-6 p-4 off my-auto" id="form container forms">
-                <!-- PRODUCTS FORM  -->
-                <form action="" class="card card-body gap-3 elements-form" id="products-form">
 
-                    <h1 class="animate__animated animate__fadeInDown" id="form-title">Registrar Producto</h1>
+                
+                <!--======= Update Products Form ========-->
+                <form action="" class="card card-body gap-3 elements-form" id="add-products-form">
+
+                    <h1 class="animate__animated animate__fadeInDown" id="add-products-form-title">Agregar Producto</h1>
+
+                    <span id="add-new-product">Nuevo producto</span>
 
                     <div class="form-group">
                         <input 
                             type="text" 
-                            id="name-product" 
+                            id="name-product-add" 
                             placeholder="Nombre del Producto" 
                             class="form-control" 
                             autofocus
@@ -74,6 +78,40 @@
 
                             </ul>
                         </div>
+                    </div>
+
+                    <div class="form-group">
+                        <input 
+                            type="number" 
+                            id="quantity-products-add" 
+                            placeholder="Cantidad a Agregar" 
+                            step="any"
+                            class="form-control"
+                            required>
+                    </div>
+
+                    <div id="data-product-to-add" style="display: none;">
+                    </div>
+
+                    <button class="btn btn-primary">
+                        Agregar
+                    </button>
+
+                </form>
+                
+                <!--=======  Record New Product Form  ========-->
+                <form action="" class="card card-body gap-3 elements-form" id="products-form" style="display: none;">
+
+                    <h1 class="animate__animated animate__fadeInDown" id="form-title">Registrar Nuevo Artículo</h1>
+                    <span id="return-button">Regresar</span>
+                    <div class="form-group">
+                        <input 
+                            type="text" 
+                            id="name-product" 
+                            placeholder="Nombre del Producto" 
+                            class="form-control" 
+                            autofocus
+                            required>
                     </div>
 
 
@@ -157,7 +195,7 @@
                     </div>
 
                     <button class="btn btn-primary">
-                        Agregar
+                        Confirmar
                     </button>
 
                 </form>
@@ -240,7 +278,7 @@
 
                 <hr>
                 <h1 id="title-elements-container1" class="animate__animated animate__flipInX" style="color:rgb(255, 253, 240)"><pre>P e d i d o s</pre></h1>
-                <h1 id="title-elements-container2" class="animate__animated animate__flipInX" style="color:rgb(255, 253, 240)"><pre>P r o d u c t o s</pre></h1>
+                <h1 id="title-elements-container2" class="animate__animated animate__flipInX" style="color:rgb(255, 253, 240); display: none;"><pre>P r o d u c t o s</pre></h1>
                 <hr>
 
                 <div id="products">

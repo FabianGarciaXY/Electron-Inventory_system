@@ -5,7 +5,7 @@
 const { ipcRenderer } = require('electron');
 
 
-/*============ Products Form =============*/
+/*============ Record Products Form =============*/
 const productsForm = document.getElementById('products-form');
 const productName = document.getElementById('name-product');
 const productPrice = document.getElementById('price-product');
@@ -16,6 +16,13 @@ const productSize = document.getElementById('size-product');
 const productColor = document.getElementById('color-product');
 const productGeneder = document.getElementById('gender-product');
 const productDescription = document.getElementById('description-product');
+
+
+/*============  Add Produts Form  =============*/
+const addProductsForm = document.getElementById('add-products-form');
+const inputNameAddProduct = document.getElementById('name-product-add');
+const recordNewProductLink = document.getElementById('add-new-product');
+const addProductsFormLink = document.getElementById('return-button');
 
 /*============ Sales Form =============*/
 const salesForm = document.getElementById('sales-form2');
@@ -74,7 +81,7 @@ productsForm.addEventListener( 'submit', async (e) => {
     productsForm.reset();
     productName.focus();
     getProducts();
-}) 
+});
 /*============ Obtener Productos =============*/
 const getProducts = async (table, column) => {
     const products = await ipcRenderer.invoke('getProducts', [myTable, myColumn]);
@@ -112,9 +119,9 @@ inputDisplay.style.width = '280px';
 inputDisplay.style.textAlign = 'left';
 listOfResults.style.listStyle = 'none';
 
-productName.addEventListener('input', async () => {
+inputNameAddProduct.addEventListener('input', async () => {
 
-    if (inputDisplay.textContent.length === 0 || productName.value == '') {
+    if (inputDisplay.textContent.length === 0 || inputNameAddProduct.value == '') {
         inputDisplay.style.display = 'none';
         listOfResults.innerHTML = '';
         return
@@ -122,7 +129,7 @@ productName.addEventListener('input', async () => {
         inputDisplay.style.display = 'flex';
     }
 
-    const results = await ipcRenderer.invoke('searchProduct', productName.value);
+    const results = await ipcRenderer.invoke('searchProduct', inputNameAddProduct.value);
     searchProductsInputResults = results;
     renderMatchedProducs(searchProductsInputResults);
 
@@ -142,21 +149,46 @@ function renderMatchedProducs(array) {
 }
 
 // Populate products form
+const dataProductToAdd =  document.getElementById('data-product-to-add');
+
 async function displayProductSelected(id) {
+
+    dataProductToAdd.innerHTML = '';
+
     const selectedArticle = await ipcRenderer.invoke('getSpecificProduct', id);
+    
     console.log(selectedArticle);
+    inputNameAddProduct.value = selectedArticle[0].name;
     inputDisplay.style.display = 'none';
+    dataProductToAdd.style.display = 'block';
 
-    productName.value = selectedArticle[0].name;
-    productPrice.value = parseFloat(selectedArticle[0].price);
-    productQuantity.value = parseInt(selectedArticle[0].quantity);
-    productCategory.value = selectedArticle[0].category;
-    productModel.value = selectedArticle[0].model;
-    productSize.value = selectedArticle[0].size;
-    productColor.value = selectedArticle[0].color;
-    productGeneder.value = selectedArticle[0].gender;
-    productDescription.value = selectedArticle[0].description;
-
+    if(selectedArticle[0].name) {
+        dataProductToAdd.innerHTML +=`<p>Nombre: <b>${selectedArticle[0].name}<b></p>`
+    }
+    if(selectedArticle[0].quantity) {
+        dataProductToAdd.innerHTML +=`<p>Cantidad actual: <b id="actual-quantity">${selectedArticle[0].quantity}</b></p>`
+    }
+    if(selectedArticle[0].price) {
+        dataProductToAdd.innerHTML +=`<p>Precio: <b>${selectedArticle[0].price}</b></p>`
+    }
+    if(selectedArticle[0].category) {
+        dataProductToAdd.innerHTML +=`<p>Categoría: <b>${selectedArticle[0].category}</b></p>`
+    }
+    if(selectedArticle[0].size) {
+        dataProductToAdd.innerHTML +=`<p>Talla: <b>${selectedArticle[0].size}</b></p>`
+    }
+    if(selectedArticle[0].model) {
+        dataProductToAdd.innerHTML +=`<p>Modelo: <b>${selectedArticle[0].model}</b></p>`
+    }
+    if(selectedArticle[0].description) {
+        dataProductToAdd.innerHTML +=`<p>Género: <b>${selectedArticle[0].gender}</b></p>`
+    }
+    if(selectedArticle[0].gender) {
+        dataProductToAdd.innerHTML +=`<p>Descripción: <b>${selectedArticle[0].description}</b></p>`;
+    }
+    if(selectedArticle[0].id_product) {
+        dataProductToAdd.innerHTML +=`<p>Código: <b id="id-product-modify">${selectedArticle[0].id_product}</b></p>`;
+    }
 }
 
 
@@ -207,6 +239,28 @@ const findOrders = async (value) => {
     console.log(result);
     return result;
 }
+
+/*=============================================
+=          Change Product Quantity            =
+=============================================*/
+addProductsForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const idProduct = document.getElementById('id-product-modify').textContent;
+
+    const actualQuantity = document.getElementById('actual-quantity').textContent;
+    const quantityToAdd = document.getElementById('quantity-products-add').value;
+
+    const newQuantity = parseInt(actualQuantity) + parseInt(quantityToAdd);
+
+    const result = await ipcRenderer.invoke('update-quantity', [idProduct, newQuantity]);
+
+    await displayProductSelected(idProduct);
+    quantityToAdd.value = null;
+    inputNameAddProduct.value = '';
+    getProducts();
+})
+
 
 
 /*============ Form de Busqueda =============*/
@@ -314,6 +368,7 @@ resetButton.addEventListener('click', () => {
 
 
 /*============ Select sections tables option Products/Ventas =============*/
+// Sales Button Option
 selectSalesButton.addEventListener('click', () => {
     document.getElementById('products-button').style.color = 'grey';
     document.getElementById('sales-button').style.color = 'rgb(255, 249, 228)';
@@ -328,12 +383,14 @@ selectSalesButton.addEventListener('click', () => {
     document.getElementById('title-elements-container2').style.display = 'none';
 
     productsForm.style.display = 'none';
+    addProductsForm.style.display = 'none';
     myTable = 'client_orders';
     myColumn = 'date_delivery';
     salesForm.style.display = 'flex';
     getProducts();
 });
-document.getElementById('title-elements-container2').style.display = 'none';
+
+// Products Button Option
 selectProductsButton.addEventListener('click', () => {
     document.getElementById('sales-button').style.color = 'grey';
     document.getElementById('products-button').style.color = 'rgb(255, 249, 228)';
@@ -347,13 +404,24 @@ selectProductsButton.addEventListener('click', () => {
     document.getElementById('title-elements-container2').style.display = 'block';
     document.getElementById('title-elements-container1').style.display = 'none';
     
+    productsForm.style.display = 'none';
     salesForm.style.display = 'none';
     myTable = 'products';
     myColumn = 'id_product';
-    productsForm.style.display = 'flex';
+    addProductsForm.style.display = 'flex'
     getProducts();
 });
 
+// New Product Button Option
+recordNewProductLink.addEventListener('click', () => {
+    addProductsForm.style.display = 'none';
+    productsForm.style.display = 'flex';
+});
+
+addProductsFormLink.addEventListener('click', () => {
+    addProductsForm.style.display = 'Flex';
+    productsForm.style.display = 'none';
+});
 
  
 /*=============================================
